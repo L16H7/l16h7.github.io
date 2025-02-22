@@ -1,0 +1,78 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        margin-left: 2rem;
+        margin-right: 2rem;
+        max-width: 800px;
+    }
+
+    p {
+        font-family: "Inconsolata";
+        font-size: 20
+    }
+</style>
+
+<body>
+    <h2>Representations and AI</h2>
+    <p>How do the language models understand the world?</p>
+    <p>For this discussion, let's focus on text-only language models. Not multimodal models with vision.</p>
+    <p>
+        We know that the LLMs cannot see, feel or experience the world but somehow they show signs of understanding the world around us.
+        My go-to example would be chess, or you can imagine any game you like. LLMs can play chess to some extent. Isn't it amazing that
+        they have never seen chessboard with vision? Of course, they learn about countless chess matches and chess lessons, tutorials and articles.
+        Still they cannot see but somehow understand chess? Or is it illusion of understanding?
+    </p>
+    <p>
+        Let's go back to Alphazero. It's an AI that learns to play and master Go, Chess and Shogi, pinnacle of boardgames for human intelligence.
+        I want to focus on how Alphazero understands the games. How the AI sees!
+    </p>
+    <p>
+        We feed Alphazero the board game states as the image-like data.[1] It's not an image per se. Image, in classical sense, can be seen as a grid of pixel values,
+        consisting of red, green, blue layers.
+        For Alphazero, we represent the game as a grid with values. e.g., one layer of the player's pieces, one layer of opponent's pieces at corresponding coordinates of the grid,
+        different layer for different information and so on.
+    </p>
+    <p>
+        The neural network for Alphazero is convolutional network. It's very different from transformer neural netowrk, which is the backbone of today's LLMs.
+        Convolutional networks are de facto standard for processing image-like data at that time. For one example, convolutional networks are used to identify whether the image is a cat or a dog.
+        They have the intelligence to see things.
+    </p>
+    <p>
+        So, Alphazero can see what chess is, where the pieces are, how the pieces move. It becomes the best chess player.
+    </p>
+    <p>
+        In contrast, language models process text data. Somehow they can play chess well without visual input. It is unsettling.
+    </p>
+    <p>
+        Then... I stumbled upon something...
+    </p>
+    <p>
+        Researchers trained Chess GPT (not an official name) only by feeding chess moves as text only. Then, they analyse internal neuron states of the model.
+        They find that the internal states of the model are learning to reconstruct the actual chess board. The data is text only but somehow the model can see it internally. [2]
+    </p>
+    <p>
+        So in a way, the language model feed on text data but they can see. They can imagine what the physical world looks like.
+        This is intelligence. May be not like our intelligence. They are a different form of intelligence.
+    </p>
+    <p>
+        Let's imagine there is an alien race somewhere in the universe. They can communicate with thoughts. They can see auras emitting from living beings.
+        They can see 7 days into the future and possible variations. When they see us humans, they wonder if we are intelligent at all because we don't have the communication abilities
+        like them. Because we lack some extra sensory abilities to perceive the world like them.
+    </p>
+    <ul>
+        <li>[1]
+            <a href="https://deepmind.google/discover/blog/alphazero-shedding-new-light-on-chess-shogi-and-go">
+                https://deepmind.google/discover/blog/alphazero-shedding-new-light-on-chess-shogi-and-go/
+            </a>
+        </li>
+        <li>[2] 
+            <a href="https://www.lesswrong.com/posts/yzGDwpRBx6TEcdeA5/a-chess-gpt-linear-emergent-world-representation">
+                https://www.lesswrong.com/posts/yzGDwpRBx6TEcdeA5/a-chess-gpt-linear-emergent-world-representation
+            </a>
+        </li>
+    </ul>
+</body>
