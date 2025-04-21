@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Light Blog</title>
+  
+  <!-- Google Fonts - Inconsolata -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <nav>
+        <a href="/" class="site-title">Light Blog</a>
+        <div class="nav-links">
+          <a href="./index.html">Home</a>
+        </div>
+      </nav>
+    </header>
+    
+    <main>
+      <article>
+        <h1>Reasoning with words</h1>
+        <div class="article-meta">Apr 20, 2025</div>
+        <p>Do large language models really need words to reason? Why do we all decide that LLMs need reasoning words?</p>
+        <p>
+          It all started with chain-of-thoughts prompting. The newborn LLMs cannot follow our instructions. They have in-context learning as an innate ability. This allows them to recognize patterns in user prompts and follow them. The era of prompt engineering.
+        </p>
+        <p>
+          As LLMs become more powerful, I argue that we still need chain-of-thoughts.
+        </p>
+        <p>
+          I want to share the latest research from Meta. The researchers are finding ways to NOT use words to reason [1].
+          They are using reasoning tokens and continuously feed those tokens to LLMs. Reasoning tokens here are not words. It's only understandable by LLMs although we can probe it to become explainable.
+          Excellent youtube video here. [2]
+        </p>
+        <p>
+          I agree with them. Why are we forcing LLMs to reason like us? They are not humans. Their reasoning doesn't need to be like ours. Biology of LLM research by Claude AI shows that LLMs have internal reasoning mechanisms [3].
+        </p>
+        <p>Thinking of chess playing ability by LLMs. What do you think it's easier to train? 1. Generating the best move as one token 2. Reasoning words and then a move?</p>
+        <p>Reasoning words are to keep LLMs in check. We want to know if LLMs are plotting something suspicious.</p>
+        <p>
+          Then, allow me to propose a research direction. Let's introduce a new head to LLMs. Token generation head and reasoning head.
+          We can only enable reasoning head when we want. That will save us inference costs in production.
+          We can use reasoning head to train reasoning. The weights will be updated to adjust the token generation head.
+        </p>
+        <p>
+          Reasoning head can serve as both explainability and reasoning training. Bonus point if we can invent a differential reasoning mechanisms just like the attention mechanism. What do you think?
+        </p>
+        <ul>
+          <li>
+            <a href="https://arxiv.org/abs/2412.06769" target="_blank">[1] Hao, Shibo, et al. "Training large language models to reason in a continuous latent space." arXiv preprint arXiv:2412.06769 (2024).</a>
+          </li>
+          <li>
+            <a href="https://youtu.be/mhKC3Avqy2E?si=8p_NcCVYb3dGa6HJ" target="_blank">[2] Training large language models to reason in a continuous latent space – COCONUT Paper explained</a>
+          </li>
+          <li>
+            <a href="https://transformer-circuits.pub/2025/attribution-graphs/biology.html" target="_blank">[3] On the Biology of a Large Language Model</a>
+          </li>
+        </ul>
+    </main>
+  </div>
+  
+  <footer>
+    <p>&copy; 2025 Light Blog. All rights reserved.</p>
+  </footer>
+</body>
+</html>
