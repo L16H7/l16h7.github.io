@@ -1,33 +1,59 @@
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
-<style>
-    body {
-        display: flex;
-        flex-direction: column;
-        margin-left: 2rem;
-        margin-right: 2rem;
-        max-width: 800px;
-    }
-    * {
-        font-family: "Inconsolata";
-        font-size: 20
-    }
-</style>
-
-<h1>Hello, this is Light. I will write about things.</h1>
-
-<p>
-    <!-- <li>
-        <a href="./matrix_master.html">Mastering matrix manipulations</a>
-    </li> -->
-    <li>
-        <a href="./get_good_at_programming.html">On getting good at programming in the age of LLM</a>
-    </li>
-    <li>
-        <a href="./representations.html">Representations and AI</a>
-    </li>
-    <li>
-        <a href="./proof.html">Proofs: Can you hear the music?</a>
-    </li>
-</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Light Blog</title>
+  <meta name="description" content="Personal blog of Lin Myat Ko">
+  <meta name="author" content="Lin Myat Ko">
+  
+  <!-- Google Fonts - Inconsolata -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX for LaTeX support -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css"
+        integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn"
+        crossorigin="anonymous">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <nav>
+        <a class="site-title">Light Blog</a>
+      </nav>
+      <div class="subtitle">A collection of thoughts on mathematics, artificial intelligence, programming</div>
+    </header>
+    
+    <main>
+      <section class="articles">
+        <div class="article-list">
+          <article class="article-card">
+            <a href="./proof.html">Proofs: Can you hear the music?</a>
+            <div class="article-excerpt">Maths book recommendation for people who wants to get back to maths</div>
+            <div class="article-meta">Mar 14, 2025</div>
+          </article>
+          <article class="article-card">
+            <a href="./representations.html">Representations and AI</a>
+            <div class="article-excerpt">About internal knowledge representations of Large Language Models</div>
+            <div class="article-meta">Feb 22, 2025</div>
+          </article>
+          <article class="article-card">
+            <a href="./get_good_at_programming.html">On getting good at programming in the age of LLMs</a>
+            <div class="article-excerpt">This is for programming newbies on avoiding pitfalls of using LLMs.</div>
+            <div class="article-meta">Nov 28, 2024</div>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+  
+  <footer>
+    <p>&copy; 2025 Light Blog. All rights reserved.</p>
+  </footer>
+</body>
+</html>
