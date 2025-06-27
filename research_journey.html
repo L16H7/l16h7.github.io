@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Light Blog</title>
+
+    <!-- Google Fonts - Inconsolata -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <a href="/" class="site-title">Light Blog</a>
+                <div class="nav-links">
+                    <a href="./index.html">Home</a>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            <article>
+                <h1>My Research Journey</h1>
+                <div class="article-meta">Jun 27, 2025</div>
+                <p>
+                    I always wanted to work in AI since starting my career in 2016.
+                    However, it wasn't until 2023 that I got the opportunity.
+                </p>
+                <p>
+                    One interesting fact is all my previous jobs were at startups,
+                    with founders from diverse backgrounds and cultures spanning Myanmar, the US, Hong Kong, Malaysia,
+                    India, and Singapore.
+                    I was what the kids today call a "Founding Engineer". :)
+                </p>
+                <p>
+                    I didn't have a formal education in computer science, so I put in long hours to catch up.
+                    I told myself, "I have to be three times better than my peers to be considered equal, due to lack of
+                    credentials."
+                </p>
+                <p>
+                    But my heart yearned for AI. I was fortunate enough to meet Dr. Htet, who became my mentor.
+                    My journey in AI research began in 2023.
+                </p>
+                <p>
+                    Modular neural networks [1] were the first thing I worked on, inspired by the human brain's
+                    modularity. The brain has neural pathways for different tasks. So, what if we could create neural
+                    networks with pathways inside the weights?
+                </p>
+                <p>
+                    Then, we discovered continual learning [2], a research area where modular networks would be
+                    promising. Continual learning is teaching AI to learn new things without forgetting existing
+                    knowledge. It's not in the mainstream research. But catastrophic forgetting may come back to haunt
+                    current state-of-the-art models.
+                </p>
+                <p>
+                    At this point, I took a career break to focus full-time on research, shifting my focus to more
+                    popular topics with better career prospects. It was about the Mixture of Experts (MoE) in Large
+                    Language Models. The problem I identified with MoE is that the experts are not the actual experts in
+                    anything. It's like a misnomer for the general public although it has significant origin in the
+                    research literature.
+                </p>
+                <p>
+                    So, I was exploring how to make the experts more specialized by inventing novel routing algorithms.
+                    In reality, no one really cared about expert specialization. I began to doubt my research. Then, I
+                    discovered Deepseek cared about the problem [3]. It was the first time in my life I felt like I was
+                    working on something meaningful in AI research.
+                    The biggest challenge was getting compute resources. If you want to prove your routing algorithm is
+                    better than the state-of-the-art, you have to pretrain LLMs. Alright, bye-bye.
+                </p>
+                <p>
+                    Enough is enough. I would just follow my passion, Reinforcement Learning, regardless of career
+                    prospects. I started learning the fundamentals of RL. I implemented a few RL algorithms from
+                    scratch. I reproduced some of the state-of-the-art RL. The most difficult research I reproduced was
+                    Meta RL with TransformerXL [4]. The architecture was so complex that I spent weeks understanding and
+                    engineering it. On a side note, Meta Reinforcement Learning is the most fascinating topic in AI
+                    research for me. [5]
+                </p>
+                <p>
+                    The achievement of pursuing RL was getting 14th place in the NeurIPS 2024 RL competition. We could
+                    have done better, but I was in the honeymoon phase with RL. I romantically thought I could solve all
+                    the problems in RL with my novel ideas instead of taking proven approaches. Looking back, I have
+                    learned valuable lessons from this experience.
+                </p>
+                <p>
+                    Now, I am focusing on LLM reasoning and RL. We are tackling the ARC AGI challenge. To be honest, it
+                    is a daunting task. But you learn the most when you try to tackle the hardest problems. And, I hope
+                    everything I learn will be coming together.
+                </p>
+                <p>
+                    I am just getting started in AI research. I have a long way to go. The meaning of life for me is to
+                    create intelligence. The world could use some more intelligence.
+                </p>
+            </article>
+            
+            <h2>References</h2>
+            <ul>
+                <li>[1] Pfeiffer, Jonas, et al. "Modular deep learning." arXiv preprint arXiv:2302.11529 (2023). 
+                    <a href="https://arxiv.org/abs/2302.11529" target="_blank">https://arxiv.org/abs/2302.11529</a>
+                </li>
+                <li>[2] Wang, Liyuan, et al. "A comprehensive survey of continual learning: Theory, method and application." IEEE Transactions on Pattern Analysis and Machine Intelligence (2024).
+                    <a href="https://arxiv.org/abs/2302.00487" target="_blank">https://arxiv.org/abs/2302.00487</a>
+                </li>
+                <li>[3] Dai, Damai, et al. "Deepseekmoe: Towards ultimate expert specialization in mixture-of-experts language models." arXiv preprint arXiv:2401.06066 (2024).
+                    <a href="https://arxiv.org/abs/2401.06066" target="_blank">https://arxiv.org/abs/2401.06066</a>
+                </li>
+                <li>[4] Team, Adaptive Agent, et al. "Human-timescale adaptation in an open-ended task space." arXiv preprint arXiv:2301.07608 (2023). 
+                    <a href="https://arxiv.org/abs/2301.07608" target="_blank">https://arxiv.org/abs/2301.07608</a>
+                </li>
+                <li>[5] Duan, Yan, et al. "Rl $^ 2$: Fast reinforcement learning via slow reinforcement learning." arXiv preprint arXiv:1611.02779 (2016).
+                    <a href="https://arxiv.org/abs/1611.02779" target="_blank">https://arxiv.org/abs/1611.02779</a>
+                </li>
+            </ul>
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Light Blog. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
