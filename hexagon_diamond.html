@@ -11,7 +11,8 @@
   .tool-count { font-size: 12px; color: var(--color-text-secondary); min-width: 18px; text-align: center; background: var(--color-background-tertiary); border-radius: 10px; padding: 1px 6px; }
   .reset-btn { margin-left: auto; padding: 6px 14px; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); cursor: pointer; font-size: 13px; background: transparent; color: var(--color-text-secondary); }
   .reset-btn:hover { background: var(--color-background-secondary); }
-  svg { display: block; margin: 0 auto; }
+  .n-input { width: 48px; padding: 4px 8px; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); font-size: 13px; background: var(--color-background-secondary); color: var(--color-text-primary); text-align: center; }
+  svg { display: block; width: 100%; height: auto; }
   .stats { display: flex; gap: 12px; margin-top: 1rem; }
   .stat { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 8px 14px; font-size: 13px; color: var(--color-text-secondary); }
   .stat span { font-weight: 500; color: var(--color-text-primary); }
@@ -53,22 +54,21 @@ let diamonds = [];
 let triToDiamond = {};
 let allTris = [];
 
-const rowConfig = [
-  { count: 9,  xOffset: 2.5 * S },
-  { count: 11, xOffset: 2 * S },
-  { count: 13, xOffset: 1.5 * S },
-  { count: 15, xOffset: 1 * S },
-  { count: 17, xOffset: 0.5 * S },
-  { count: 19, xOffset: 0 },
-  { count: 19, xOffset: 0 },
-  { count: 17, xOffset: 0.5 * S },
-  { count: 15, xOffset: 1 * S },
-  { count: 13, xOffset: 1.5 * S },
-  { count: 11, xOffset: 2 * S },
-  { count: 9,  xOffset: 2.5 * S },
-];
+const N = 4;
+const rowConfig = buildRowConfig(N);
 
-function isUpTri(r, c) { return r < 6 ? c % 2 === 0 : c % 2 !== 0; }
+function buildRowConfig(n) {
+  const rows = [];
+  for (let i = 0; i < n; i++) {
+    rows.push({ count: 2 * n + 1 + 2 * i, xOffset: (n - 1 - i) * S / 2 });
+  }
+  for (let i = n - 1; i >= 0; i--) {
+    rows.push({ count: 2 * n + 1 + 2 * i, xOffset: (n - 1 - i) * S / 2 });
+  }
+  return rows;
+}
+
+function isUpTri(r, c) { return r < N ? c % 2 === 0 : c % 2 !== 0; }
 
 function getTriPts(r, c) {
   const cfg = rowConfig[r];
@@ -218,24 +218,24 @@ function buildGridLines() {
 }
 
 function buildHexOutline() {
-  // Compute from actual triangle vertices on the boundary
+  const midRow = N - 1;
+  const lastRow = 2 * N - 1;
   const r0 = rowConfig[0];
-  const r5 = rowConfig[5];
-  const r11 = rowConfig[11];
+  const rMid = rowConfig[midRow];
+  const rLast = rowConfig[lastRow];
 
-  // Top row first up-tri apex and last up-tri apex
   const topLeftApex = [r0.xOffset + S/2, 0];
-  const lastUpC0 = rowConfig[0].count - 1 - (rowConfig[0].count % 2 === 0 ? 1 : 0);
+  const lastUpC0 = r0.count - 2 + (r0.count % 2);
   const topRightApex = [r0.xOffset + lastUpC0 * S/2 + S/2, 0];
 
-  // Middle row extremes
-  const midLeft = [r5.xOffset, 5*H + H];
-  const midRight = [r5.xOffset + Math.ceil(r5.count/2) * S, 5*H + H];
+  const midY = midRow * H;
+  const midLeft = [rMid.xOffset, midY + H];
+  const midRight = [rMid.xOffset + Math.ceil(rMid.count/2) * S, midY + H];
 
-  // Bottom row
-  const botLeftApex = [r11.xOffset + S/2, 12*H];
-  const lastUpC11 = rowConfig[11].count - 1 - (rowConfig[11].count % 2 === 0 ? 1 : 0);
-  const botRightApex = [r11.xOffset + lastUpC11 * S/2 + S/2, 12*H];
+  const botY = lastRow * H;
+  const botLeftApex = [rLast.xOffset + S/2, botY + H];
+  const lastUpCLast = rLast.count - 2 + (rLast.count % 2);
+  const botRightApex = [rLast.xOffset + lastUpCLast * S/2 + S/2, botY + H];
 
   // Regular hexagon: 6 corners
   // top-left, top-right, mid-right, bot-right, bot-left, mid-left
