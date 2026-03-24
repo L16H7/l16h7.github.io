@@ -25,6 +25,7 @@
   .stat span { font-weight: 700; color: #fff; }
   @media (min-width: 600px) {
     .container { max-width: 600px; padding: 24px; }
+    .container.wide { max-width: 1000px; }
     h2 { font-size: 26px; }
     .subtitle { font-size: 14px; }
     .tool-btn { padding: 12px 8px; font-size: 14px; }
@@ -56,7 +57,7 @@
   <div class="toolbar2">
     <div class="n-stepper">
       <button class="n-step-btn" onclick="changeN(N-1)">−</button>
-      <span class="n-val" id="nVal">4</span>
+      <span class="n-val" id="nVal">2</span>
       <button class="n-step-btn" onclick="changeN(N+1)">+</button>
     </div>
     <button class="reset-btn" onclick="resetBoard()">Clear</button>
@@ -79,7 +80,7 @@ let diamonds = [];
 let triToDiamond = {};
 let allTris = [];
 
-let N = 4;
+let N = 2;
 let rowConfig = buildRowConfig(N);
 
 function buildRowConfig(n) {
@@ -383,8 +384,9 @@ function resetBoard() {
 }
 
 function changeN(val) {
-  N = Math.max(1, Math.min(10, parseInt(val) || 4));
+  N = Math.max(1, Math.min(10, parseInt(val)));
   document.getElementById('nVal').textContent = N;
+  document.querySelector('.container').classList.toggle('wide', N >= 4);
   rowConfig = buildRowConfig(N);
   diamonds = [];
   triToDiamond = {};
@@ -398,6 +400,7 @@ function changeN(val) {
   render();
 }
 
+document.querySelector('.container').classList.toggle('wide', N >= 4);
 buildGrid();
 buildNeighborMaps();
 buildAllDiamondPairs();
