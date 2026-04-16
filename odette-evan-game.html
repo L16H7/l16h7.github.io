@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Odette vs Evan</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ── Variables ──────────────────────────────────────── */
+:root {
+  --bg:        #f4f7fc;
+  --surface:   #ffffff;
+  --border:    #d0daea;
+  --muted:     #b8c8dc;
+  --text:      #1a2640;
+  --dim:       #7a8aaa;
+  --red-bg:    #fde8e8;
+  --red-bdr:   #c0392b;
+  --red-glow:  rgba(192,57,43,0.2);
+  --blue-bg:   #e4effc;
+  --blue-bdr:  #2874d5;
+  --blue-glow: rgba(40,116,213,0.25);
+  --gold:      #a07010;
+  --gold-dim:  #c09030;
+  --green:     #2ecc71;
+  --font-head: 'DM Serif Display', Georgia, serif;
+  --font-mono: 'DM Mono', monospace;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+/* ── Reset & Base ───────────────────────────────────── */
+html { font-size: 20px; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 36px 20px 48px;
+  gap: 0;
+  background-image:
+    radial-gradient(ellipse 80% 40% at 50% 0%, rgba(40,100,220,0.06) 0%, transparent 70%),
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(180,200,220,0.5) 39px, rgba(180,200,220,0.5) 40px),
+    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(180,200,220,0.5) 39px, rgba(180,200,220,0.5) 40px);
+}
+
+/* ── Header ─────────────────────────────────────────── */
+.header { text-align: center; margin-bottom: 28px; }
+
+h1 {
+  font-family: var(--font-head);
+  font-size: 2.6rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  background: linear-gradient(135deg, #a07010 0%, #7a5200 45%, #1a5cb0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+
+.header .vs {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  color: var(--dim);
+  text-transform: uppercase;
+}
+
+.theorem {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(160,112,16,0.07);
+  border: 1px solid var(--gold-dim);
+  border-radius: 6px;
+  padding: 6px 16px;
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--gold);
+}
+
+.theorem .label { color: var(--gold-dim); }
+
+/* ── Controls ───────────────────────────────────────── */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 20px;
+  margin-bottom: 18px;
+}
+
+.controls label {
+  font-size: 0.82rem;
+  color: var(--dim);
+  letter-spacing: 0.03em;
+}
+
+.n-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.n-input-wrap span {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  color: var(--text);
+}
+
+input[type="number"] {
+  width: 54px;
+  padding: 5px 8px;
+  background: #eef2f8;
+  border: 1px solid var(--muted);
+  border-radius: 6px;
+  color: #6a4800;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.15s;
+}
+input[type="number"]:focus { border-color: var(--gold); }
+input[type="number"]::-webkit-inner-spin-button { opacity: 0.5; }
+
+.btn {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.84rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  transition: all 0.15s;
+}
+.btn:active { transform: scale(0.96); }
+
+.btn-new {
+  background: linear-gradient(135deg, #2874d5, #1a5cb0);
+  color: #ffffff;
+  border: 1px solid #1a5cb0;
+}
+.btn-new:hover { background: linear-gradient(135deg, #3382e0, #2068c0); border-color: #2874d5; }
+
+/* ── Stats row ──────────────────────────────────────── */
+.stats {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.stat {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 10px 20px;
+  text-align: center;
+  min-width: 100px;
+}
+
+.stat .val {
+  font-family: var(--font-mono);
+  font-size: 1.65rem;
+  font-weight: 500;
+  line-height: 1;
+  transition: color 0.3s;
+}
+
+.stat .lbl {
+  font-size: 0.67rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--dim);
+  margin-top: 4px;
+}
+
+.stat.s-red   .val { color: #c0392b; }
+.stat.s-safe  .val { color: var(--gold); }
+.stat.s-blue  .val { color: #2874d5; }
+
+/* ── Message bar ────────────────────────────────────── */
+#msg {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--muted);
+  border-radius: 7px;
+  padding: 10px 18px;
+  font-size: 0.83rem;
+  color: #4a5a78;
+  max-width: 580px;
+  width: 100%;
+  text-align: center;
+  line-height: 1.55;
+  margin-bottom: 18px;
+  transition: border-color 0.3s, color 0.3s, background 0.3s;
+}
+
+#msg.m-active { border-left-color: #2874d5; color: var(--text); }
+#msg.m-safe   { border-left-color: var(--gold); color: #7a5000; background: rgba(160,112,16,0.06); }
+#msg.m-win    { border-left-color: var(--blue-bdr); color: #1a5cb0; background: rgba(40,116,213,0.07); }
+#msg.m-dead   { border-left-color: #c0392b; color: #9a2020; }
+
+/* ── Main grid area ─────────────────────────────────── */
+.grid-area {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.grid-shell {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.9);
+  position: relative;
+}
+
+/* col labels */
+.col-labels {
+  display: flex;
+  gap: 3px;
+  padding: 0 0 4px 20px;   /* align with grid cells, accounting for row labels */
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--dim);
+  letter-spacing: 0em;
+}
+
+.col-labels span { text-align: center; }
+
+/* grid + row labels */
+.grid-rows { display: flex; gap: 3px; flex-direction: column; }
+.grid-row  { display: flex; gap: 3px; align-items: center; }
+
+.row-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--dim);
+  width: 14px;
+  text-align: right;
+  padding-right: 3px;
+  user-select: none;
+}
+
+/* ── Cells ──────────────────────────────────────────── */
+.cell {
+  background: #e8edf8;
+  border: 1px solid #c0cce0;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.1s, border-color 0.1s, box-shadow 0.1s, transform 0.08s;
+  position: relative;
+}
+
+.cell:hover:not(.blue):not(.dead) {
+  background: #d0dcf0;
+  border-color: #9ab0d0;
+  transform: scale(1.08);
+  z-index: 2;
+}
+
+.cell.red {
+  background: var(--red-bg);
+  border-color: var(--red-bdr);
+  box-shadow: 0 0 7px var(--red-glow);
+}
+.cell.red:hover:not(.dead) { background: #fcd0d0; }
+
+.cell.blue {
+  background: var(--blue-bg);
+  border-color: var(--blue-bdr);
+  box-shadow: 0 0 10px var(--blue-glow);
+  animation: pls 1.6s ease-in-out infinite alternate;
+  cursor: default;
+}
+
+@keyframes pls {
+  from { box-shadow: 0 0 6px rgba(40,116,213,0.35); }
+  to   { box-shadow: 0 0 18px rgba(40,116,213,0.75), 0 0 40px rgba(40,116,213,0.2); }
+}
+
+/* flash on first paint */
+@keyframes pop-red {
+  0%   { transform: scale(1.15); box-shadow: 0 0 18px rgba(192,57,43,0.7); }
+  100% { transform: scale(1); }
+}
+.cell.red.fresh { animation: pop-red 0.25s ease-out forwards; }
+
+/* ── Side info panel ────────────────────────────────── */
+.side-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 200px;
+}
+
+.info-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+
+.info-card h3 {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--dim);
+  margin-bottom: 8px;
+}
+
+.info-card p {
+  font-size: 0.78rem;
+  color: #4a5a78;
+  line-height: 1.6;
+}
+
+.info-card p em {
+  color: var(--gold);
+  font-style: normal;
+  font-family: var(--font-mono);
+}
+
+.row-status { margin-top: 10px; }
+
+.row-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 3px;
+}
+
+.row-bar .rb-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--dim);
+  width: 18px;
+}
+
+.row-bar .rb-track {
+  flex: 1;
+  height: 5px;
+  background: var(--muted);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.row-bar .rb-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.2s, background 0.2s;
+  background: var(--dim);
+}
+
+.rb-fill.odd  { background: #c0392b; }
+.rb-fill.even { background: #2874d5; }
+
+.rb-count {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--dim);
+  width: 14px;
+  text-align: right;
+}
+
+/* ── Below-board How to Play ────────────────────────── */
+.how-to-play {
+  max-width: 580px;
+  width: 100%;
+  margin-top: 14px;
+}
+
+/* ── Tutorial section ───────────────────────────────── */
+.tutorial-section {
+  max-width: 580px;
+  width: 100%;
+  margin-top: 14px;
+}
+
+.tut-subtitle {
+  font-size: 0.75rem;
+  color: #4a5a78;
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+
+.tutorial-examples {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.tut-ex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+}
+
+.tut-ex-title {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--dim);
+}
+
+.mini-grid-shell {
+  background: #eef2fa;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 9px;
+}
+
+.mini-grid-rows { display: flex; flex-direction: column; gap: 2px; }
+.mini-grid-row  { display: flex; gap: 2px; }
+
+.mini-cell {
+  width: 22px;
+  height: 22px;
+  border-radius: 3px;
+  background: #e8edf8;
+  border: 1px solid #c0cce0;
+  flex-shrink: 0;
+}
+.mini-cell.red {
+  background: var(--red-bg);
+  border-color: var(--red-bdr);
+  box-shadow: 0 0 5px var(--red-glow);
+}
+.mini-cell.blue {
+  background: var(--blue-bg);
+  border-color: var(--blue-bdr);
+  box-shadow: 0 0 7px var(--blue-glow);
+}
+
+.tut-caption {
+  font-size: 0.7rem;
+  color: #4a5a78;
+  text-align: center;
+  max-width: 130px;
+  line-height: 1.4;
+}
+
+.tut-badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  padding: 3px 9px;
+  border-radius: 4px;
+  letter-spacing: 0.06em;
+}
+.tut-badge.evan  { background: rgba(40,116,213,0.1); color: #1a5cb0; border: 1px solid var(--blue-bdr); }
+.tut-badge.odette { background: rgba(160,112,16,0.1); color: var(--gold); border: 1px solid var(--gold-dim); }
+
+/* ── Legend ─────────────────────────────────────────── */
+.legend {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+  justify-content: center;
+}
+.legend-item {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 0.72rem; color: var(--dim);
+}
+.sw {
+  width: 13px; height: 13px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+/* ── Responsive ─────────────────────────────────────── */
+@media (max-width: 680px) {
+  .side-panel { display: none; }
+  .grid-area  { flex-direction: column; }
+}
+
+@media (max-width: 540px) {
+  body { padding: 20px 12px 36px; }
+
+  h1 { font-size: 1.9rem; }
+
+  .theorem {
+    font-size: 0.72rem;
+    padding: 5px 12px;
+    gap: 7px;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .controls {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 14px;
+  }
+
+  .stats { gap: 6px; }
+  .stat  { padding: 8px 10px; min-width: 80px; flex: 1; }
+  .stat .val { font-size: 1.3rem; }
+
+  #msg { padding: 8px 12px; font-size: 0.79rem; }
+
+  .grid-shell { padding: 12px; }
+
+  .legend { flex-wrap: wrap; gap: 8px; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="confetti-canvas" style="position:fixed;top:0;left:0;pointer-events:none;z-index:9999;display:none;"></canvas>
+
+<!-- Header -->
+<div class="header">
+  <p class="vs">A Mathematical Two-Player Game</p>
+  <h1>Odette vs Evan</h1>
+</div>
+
+<!-- Controls -->
+<div class="controls">
+  <label>Grid size:</label>
+  <div class="n-input-wrap">
+    <span>2n × 2n,&nbsp; n =</span>
+    <input type="number" id="nInput" value="3" min="1" max="8">
+  </div>
+  <button class="btn btn-new" onclick="initGame()">▶ New Game</button>
+</div>
+
+<!-- Stats -->
+<div class="stats">
+  <div class="stat s-red">
+    <div class="val" id="statRed">0</div>
+    <div class="lbl">Red</div>
+  </div>
+  <div class="stat s-safe">
+    <div class="val" id="statSafe">—</div>
+    <div class="lbl">Max</div>
+  </div>
+  <div class="stat s-blue">
+    <div class="val" id="statBlue">0</div>
+    <div class="lbl">Blue</div>
+  </div>
+</div>
+
+<!-- Message -->
+<div id="msg">Set <em>n</em> and press New Game to begin.</div>
+
+<!-- Main content -->
+<div class="grid-area">
+
+  <!-- Grid shell -->
+  <div class="grid-shell">
+    <div class="col-labels" id="colLabels"></div>
+    <div class="grid-rows" id="gridRows"></div>
+    <div class="legend">
+      <div class="legend-item">
+        <div class="sw" style="background:#e8edf8;border:1px solid #c0cce0;"></div>Empty
+      </div>
+      <div class="legend-item">
+        <div class="sw" style="background:#fde8e8;border:1px solid #c0392b;"></div>Red — Odette
+      </div>
+      <div class="legend-item">
+        <div class="sw" style="background:#e4effc;border:1px solid #2874d5;"></div>Blue — Evan
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- How to Play — below board -->
+<div class="info-card how-to-play">
+  <h3>How to Play</h3>
+  <p>
+    You are <em>Odette</em>. Click squares to paint them red.<br><br>
+    After each move, <em>Evan</em> checks whether a subset of red squares can be recolored blue so every row &amp; column has an <em>even</em> number of blue squares.<br><br>
+    Odette's optimal strategy survives up to <em>4n−1</em> squares.
+  </p>
+</div>
+
+<!-- Tutorial examples -->
+<div class="info-card tutorial-section">
+  <h3>When does Evan win?</h3>
+  <p class="tut-subtitle">Evan wins whenever any subset of red squares covers each of its rows and columns an <em>even</em> number of times.</p>
+  <div class="tutorial-examples">
+    <div class="tut-ex">
+      <div class="mini-grid-shell" id="tut1"></div>
+      <div class="tut-badge evan">Evan wins</div>
+    </div>
+    <div class="tut-ex">
+      <div class="mini-grid-shell" id="tut2"></div>
+      <div class="tut-badge evan">Evan wins</div>
+    </div>
+    <div class="tut-ex">
+      <div class="mini-grid-shell" id="tut3"></div>
+      <div class="tut-badge evan">Evan wins</div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── State ────────────────────────────────────────── */
+let n = 3, gs = 6;   // gs = gridSize = 2n
+let redSet = new Set();
+let over = false;
+
+/* ── Init ─────────────────────────────────────────── */
+function initGame() {
+  n  = Math.max(1, Math.min(8, parseInt(document.getElementById('nInput').value) || 3));
+  document.getElementById('nInput').value = n;
+  gs = 2 * n;
+  redSet = new Set();
+  over   = false;
+
+  document.getElementById('statSafe').textContent = 4 * n - 1;
+  document.getElementById('statRed').textContent  = '0';
+  document.getElementById('statBlue').textContent = '0';
+
+  // msg(`${gs}×${gs} game ready. You are Odette — paint squares red. Theoretical safe max: <em>${4*n-1}</em>.`, 'm-active');
+  buildGrid();
+  updateRowStatus();
+}
+
+/* ── Grid builder ─────────────────────────────────── */
+function buildGrid() {
+  const isMobile = window.innerWidth < 540;
+  const cs = isMobile
+    ? Math.max(18, Math.min(48, Math.floor((window.innerWidth - 80) / gs)))
+    : Math.max(24, Math.min(60, Math.floor(500 / gs)));
+
+  /* col labels */
+  const cls = document.getElementById('colLabels');
+  cls.innerHTML = '';
+  for (let c = 0; c < gs; c++) {
+    const s = document.createElement('span');
+    s.textContent = c;
+    s.style.width = cs + 'px';
+    cls.appendChild(s);
+  }
+
+  /* rows */
+  const rows = document.getElementById('gridRows');
+  rows.innerHTML = '';
+  for (let r = 0; r < gs; r++) {
+    const row = document.createElement('div');
+    row.className = 'grid-row';
+
+    const lbl = document.createElement('div');
+    lbl.className = 'row-label';
+    lbl.textContent = r;
+    row.appendChild(lbl);
+
+    for (let c = 0; c < gs; c++) {
+      const cell = document.createElement('div');
+      cell.className = 'cell';
+      cell.id = `c_${r}_${c}`;
+      cell.style.width  = cs + 'px';
+      cell.style.height = cs + 'px';
+      cell.title = `(${r}, ${c})`;
+      cell.onclick = () => handleClick(r, c);
+      row.appendChild(cell);
+    }
+    rows.appendChild(row);
+  }
+}
+
+/* ── Click handler ────────────────────────────────── */
+function handleClick(r, c) {
+  if (over) {
+    msg('Game over — start a New Game!', 'm-dead');
+    return;
+  }
+  const key = `${r},${c}`;
+  const el  = document.getElementById(`c_${r}_${c}`);
+
+  /* Toggle off */
+  if (redSet.has(key)) {
+    redSet.delete(key);
+    el.className = 'cell';
+    updateStats();
+    updateRowStatus();
+    const left = (4*n-1) - redSet.size;
+    msg(`Removed (${r},${c}). ${redSet.size} red squares. ${left > 0 ? left+' away from theoretical limit.' : ''}`, 'm-active');
+    return;
+  }
+
+  /* Paint red */
+  redSet.add(key);
+  el.className = 'cell red fresh';
+  setTimeout(() => el.classList.remove('fresh'), 280);
+  updateStats();
+  updateRowStatus();
+
+  /* Evan checks */
+  const cycle = findCycle();
+
+  if (cycle) {
+    /* Paint cycle blue */
+    cycle.forEach(([cr, cc]) => {
+      document.getElementById(`c_${cr}_${cc}`).className = 'cell blue';
+    });
+    document.getElementById('statBlue').textContent = cycle.length;
+
+    msg(`🔵 Evan wins! ${cycle.length} squares recolored blue — every involved row &amp; column now has an even blue count. You placed ${redSet.size} red squares.`, 'm-win');
+    over = true;
+  } else {
+    const left = (4*n-1) - redSet.size;
+    if (left > 0) {
+      msg(`${redSet.size} red square${redSet.size > 1 ? 's' : ''}. No valid recoloring found yet. ${left} move${left > 1 ? 's' : ''} before the theoretical limit.`, 'm-active');
+    } else if (left === 0) {
+      msg(`Exactly ${redSet.size} red squares — at the theoretical max (4n−1 = ${4*n-1})! Odette holds on so far.`, 'm-safe');
+      launchConfetti();
+    } else {
+      msg(`${redSet.size} red squares — past the theoretical limit! Evan should be able to win in some arrangement.`, 'm-active');
+    }
+  }
+}
+
+/* ── Helpers ──────────────────────────────────────── */
+function updateStats() {
+  document.getElementById('statRed').textContent = redSet.size;
+}
+
+function msg(html, cls) {
+  const el = document.getElementById('msg');
+  el.innerHTML = html;
+  el.className = cls || '';
+}
+
+function updateRowStatus() {
+  const panel = document.getElementById('rowStatus');
+  if (!panel) return;
+
+  /* Count reds per row */
+  const counts = new Array(gs).fill(0);
+  for (const key of redSet) {
+    const r = parseInt(key.split(',')[0]);
+    counts[r]++;
+  }
+  const maxCount = Math.max(...counts, 1);
+
+  panel.innerHTML = '';
+  for (let r = 0; r < gs; r++) {
+    const cnt = counts[r];
+    const pct = Math.round((cnt / gs) * 100);
+    const isOdd = cnt % 2 === 1;
+
+    const bar = document.createElement('div');
+    bar.className = 'row-bar';
+    bar.innerHTML = `
+      <span class="rb-label">r${r}</span>
+      <div class="rb-track">
+        <div class="rb-fill ${cnt === 0 ? '' : isOdd ? 'odd' : 'even'}"
+             style="width:${pct}%"></div>
+      </div>
+      <span class="rb-count">${cnt}</span>`;
+    panel.appendChild(bar);
+  }
+}
+
+/* ── Cycle detection ──────────────────────────────── */
+/*
+ * Model: bipartite graph
+ *   Row nodes  : 0  .. gs-1
+ *   Col nodes  : gs .. 2*gs-1
+ *
+ * Each red square (r,c) is an edge  r  ↔  (gs+c)
+ *
+ * A cycle in this graph corresponds to a set of squares
+ * where every involved row and column appears an even number
+ * of times — exactly what Evan needs.
+ *
+ * Proof sketch: #edges ≥ #nodes (= 4n) ⟹ cycle exists.
+ */
+function findCycle() {
+  const adj = {};
+
+  function addEdge(u, v, sq) {
+    (adj[u] = adj[u] || []).push({ to: v, sq });
+  }
+
+  for (const key of redSet) {
+    const [r, c] = key.split(',').map(Number);
+    addEdge(r,      gs + c, [r, c]);
+    addEdge(gs + c, r,      [r, c]);
+  }
+
+  const visited = new Set();
+  const parent  = {};     /* parent node in DFS tree */
+  const pSq     = {};     /* square used to reach node */
+  let   found   = null;
+
+  function dfs(u, par) {
+    if (found) return;
+    visited.add(u);
+
+    for (const { to: v, sq } of (adj[u] || [])) {
+      if (found) return;
+
+      if (!visited.has(v)) {
+        parent[v] = u;
+        pSq[v]    = sq;
+        dfs(v, u);
+
+      } else if (v !== par) {
+        /* Back-edge: cycle from u → … → v → u */
+        /* Collect all squares along the cycle  */
+        const squares = [sq];    /* the back edge */
+        let cur = u;
+        while (cur !== v) {
+          squares.push(pSq[cur]);
+          cur = parent[cur];
+        }
+        found = squares;
+        return;
+      }
+    }
+  }
+
+  /* Collect all nodes that participate */
+  const nodes = new Set();
+  for (const key of redSet) {
+    const [r, c] = key.split(',').map(Number);
+    nodes.add(r);
+    nodes.add(gs + c);
+  }
+
+  for (const node of nodes) {
+    if (!visited.has(node) && !found) dfs(node, -1);
+  }
+
+  return found;   /* null if no cycle */
+}
+
+/* ── Tutorial mini-grids ──────────────────────────── */
+/*
+ * tut1 – Rectangle: reds at corners, all recolored blue.
+ *   (0,0),(0,2),(2,0),(2,2) form a 4-cycle.
+ *   Extra red at (1,1) stays red — shows Evan only needs a subset.
+ *
+ * tut2 – Sparse board: many reds, only 4 blue forming a hidden rectangle.
+ *   Blue: (0,1),(0,4),(3,1),(3,4) — rectangle, each row/col appears twice.
+ *   Many extra reds fill the board to show Evan only needs the subset.
+ *
+ * tut3 – Staircase 6-cycle amid extra reds:
+ *   Blue: (0,0),(0,1),(1,1),(1,2),(2,2),(2,0) — 6-cycle (not a rectangle).
+ *   Extra reds scattered around show it's not a rectangle that wins.
+ */
+const TUTORIALS = [
+  {
+    id: 'tut1', size: 6,
+    red:  [[0,0],[0,2],[1,1],[2,0],[2,2],[3,4],[3,5],[4,2]],
+    blue: [[0,0],[0,2],[2,0],[2,2]],
+  },
+  {
+    id: 'tut2', size: 6,
+    red:  [[1,2],[3,5],[4,1],[4,3],[5,4]],
+    blue: [[0,1],[0,4],[3,1],[3,4]],
+  },
+  {
+    id: 'tut3', size: 6,
+    red:  [[2,3],[2,0],[4,5]],
+    blue: [[0,1],[0,4],[3,2],[3,4],[5,1],[5,2]],
+  },
+];
+
+function buildTutorials() {
+  for (const tut of TUTORIALS) {
+    const wrap = document.getElementById(tut.id);
+    if (!wrap) continue;
+    const redSet  = new Set(tut.red.map(([r,c])  => `${r},${c}`));
+    const blueSet = new Set(tut.blue.map(([r,c]) => `${r},${c}`));
+    const grid = document.createElement('div');
+    grid.className = 'mini-grid-rows';
+    for (let r = 0; r < tut.size; r++) {
+      const row = document.createElement('div');
+      row.className = 'mini-grid-row';
+      for (let c = 0; c < tut.size; c++) {
+        const cell = document.createElement('div');
+        const key = `${r},${c}`;
+        cell.className = 'mini-cell' +
+          (blueSet.has(key) ? ' blue' : redSet.has(key) ? ' red' : '');
+        row.appendChild(cell);
+      }
+      grid.appendChild(row);
+    }
+    wrap.appendChild(grid);
+  }
+}
+
+/* ── Confetti ─────────────────────────────────────── */
+function launchConfetti() {
+  const canvas = document.getElementById('confetti-canvas');
+  const ctx    = canvas.getContext('2d');
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+  canvas.style.display = 'block';
+
+  const colors = ['#e8c97a','#f5e6b0','#a8c8ff','#d4a843','#5090e8','#e05050','#2ecc71','#ffffff'];
+  const particles = Array.from({ length: 140 }, () => ({
+    x:   Math.random() * canvas.width,
+    y:   -20 - Math.random() * canvas.height * 0.4,
+    w:   Math.random() * 9 + 4,
+    h:   Math.random() * 5 + 3,
+    col: colors[Math.floor(Math.random() * colors.length)],
+    rot: Math.random() * Math.PI * 2,
+    vx:  (Math.random() - 0.5) * 3.5,
+    vy:  Math.random() * 3 + 2,
+    vr:  (Math.random() - 0.5) * 0.14,
+    alpha: 1,
+  }));
+
+  let raf;
+  (function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    let alive = false;
+    for (const p of particles) {
+      p.x   += p.vx;
+      p.y   += p.vy;
+      p.vy  += 0.06;
+      p.rot += p.vr;
+      /* fade out near bottom */
+      if (p.y > canvas.height * 0.75) p.alpha = Math.max(0, p.alpha - 0.025);
+      if (p.y < canvas.height + 30 && p.alpha > 0) alive = true;
+      ctx.save();
+      ctx.globalAlpha = p.alpha;
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+      ctx.fillStyle = p.col;
+      ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      ctx.restore();
+    }
+    if (alive) {
+      raf = requestAnimationFrame(draw);
+    } else {
+      canvas.style.display = 'none';
+      cancelAnimationFrame(raf);
+    }
+  })();
+}
+
+/* ── Boot ─────────────────────────────────────────── */
+initGame();
+buildTutorials();
+window.addEventListener('resize', () => buildGrid());
+</script>
+</body>
+</html>
